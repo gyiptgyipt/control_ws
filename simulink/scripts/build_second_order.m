@@ -115,7 +115,7 @@ function build_second_order()
         plot([tp, tp], [0, y_peak], 'r:', 'LineWidth', 1.5);
     end
     xlabel('Time (s)'); ylabel('Amplitude');
-    title(sprintf('Second-Order System: K=%.1f, \omega_n=%.1f rad/s, \zeta=%.2f', K, wn, zeta));
+    title(sprintf('Second-Order System: K=%.1f, \\omega_n=%.1f rad/s, \\zeta=%.2f', K, wn, zeta));
     legend('Response', 'Steady-state', 'Peak', 'Location', 'southeast');
     grid on;
     
