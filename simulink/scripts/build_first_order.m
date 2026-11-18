@@ -8,7 +8,7 @@
 %   - Steady-state value: K * step_amplitude
 %   - Settling time (2%): ~4*tau
 
-function build_first_order()
+function build_first_order_l()
     % Parameters
     K = 2;          % System gain
     tau = 1.5;      % Time constant (seconds)
@@ -77,8 +77,7 @@ function build_first_order()
     save_system(model_name, fullfile('models', model_name));
     
     % Run simulation
-    fprintf('Running simulation for %s...
-', model_name);
+    fprintf('Running simulation for %s...', model_name);
     simOut = sim(model_name);
     
     % Extract and plot results
@@ -96,29 +95,19 @@ function build_first_order()
     grid on;
     
     % Print key metrics
-    fprintf('
-First-Order System Characteristics:
-');
-    fprintf('  Gain (K): %.2f
-', K);
-    fprintf('  Time Constant (tau): %.2f s
-', tau);
-    fprintf('  Steady-state value: %.2f
-', K*step_amplitude);
-    fprintf('  63.2%% rise time: %.2f s
-', tau);
-    fprintf('  Settling time (2%%): %.2f s
-', 4*tau);
-    fprintf('  Settling time (5%%): %.2f s
-', 3*tau);
+    fprintf('First-Order System Characteristics:');
+    fprintf('  Gain (K): %.2f', K);
+    fprintf('  Time Constant (tau): %.2f s', tau);
+    fprintf('  Steady-state value: %.2f', K*step_amplitude);
+    fprintf('  63.2%% rise time: %.2f s', tau);
+    fprintf('  Settling time (2%%): %.2f s', 4*tau);
+    fprintf('  Settling time (5%%): %.2f s', 3*tau);
     
     close_system(model_name, 0);
-    fprintf('
-Model saved to models/%s.slx
-', model_name);
+    fprintf('Model saved to models/%s.slx', model_name);
 end
 
 % Run if called directly
-if ~exist('build_first_order', 'file') || strcmp(inputname(1), '')
-    build_first_order();
+if true  % Run when script is executed directly
+    build_first_order_l();
 end

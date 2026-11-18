@@ -173,6 +173,6 @@ Model saved to models/%s.slx
 end
 
 % Run if called directly
-if ~exist('build_second_order', 'file') || strcmp(inputname(1), '')
+if true  % Run when script is executed directly
     build_second_order();
 end

@@ -202,6 +202,6 @@ Model saved to models/%s.slx
 end
 
 % Run if called directly
-if ~exist('build_pid_control', 'file') || strcmp(inputname(1), '')
+if true  % Run when script is executed directly
     build_pid_control();
 end

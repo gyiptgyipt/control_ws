@@ -59,6 +59,6 @@ function run_all_tutorials()
 end
 
 % Run if called directly
-if ~exist('run_all_tutorials', 'file') || strcmp(inputname(1), '')
+if true  % Run when script is executed directly
     run_all_tutorials();
 end

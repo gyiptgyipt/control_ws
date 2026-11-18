@@ -219,6 +219,6 @@ Model saved to models/%s.slx
 end
 
 % Run if called directly
-if ~exist('build_bode_plot', 'file') || strcmp(inputname(1), '')
+if true  % Run when script is executed directly
     build_bode_plot();
 end
