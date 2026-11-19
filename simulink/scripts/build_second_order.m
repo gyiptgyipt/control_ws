@@ -1,3 +1,4 @@
+function build_second_order()
 % build_second_order.m
 % Build and simulate a second-order system in Simulink
 % Tutorial: Second-Order System Response
@@ -21,7 +22,6 @@
 %   - Settling time (2%%): ts = 4 / (zeta*wn)
 %   - Rise time (10-90%%): tr approx 1.8/wn for zeta=0.5
 
-function build_second_order()
     % Parameters
     K = 1;          % DC gain
     wn = 4;         % Natural frequency (rad/s)
@@ -86,8 +86,7 @@ function build_second_order()
     save_system(model_name, fullfile('models', model_name));
     
     % Run simulation
-    fprintf('Running simulation for %s...
-', model_name);
+    fprintf('Running simulation for %s...\n', model_name);
     simOut = sim(model_name);
     
     % Extract results
@@ -120,15 +119,10 @@ function build_second_order()
     grid on;
     
     % Print key metrics
-    fprintf('
-Second-Order System Characteristics:
-');
-    fprintf('  DC Gain (K): %.2f
-', K);
-    fprintf('  Natural Frequency (wn): %.2f rad/s
-', wn);
-    fprintf('  Damping Ratio (zeta): %.2f
-', zeta);
+    fprintf('\nSecond-Order System Characteristics:\n');
+    fprintf('  DC Gain (K): %.2f\n', K);
+    fprintf('  Natural Frequency (wn): %.2f rad/s\n', wn);
+    fprintf('  Damping Ratio (zeta): %.2f\n', zeta);
     
     % Pole locations
     poles = roots([1, 2*zeta*wn, wn^2]);
@@ -136,43 +130,25 @@ Second-Order System Characteristics:
     for i = 1:length(poles)
         fprintf('%.3f%+.3fi ', real(poles(i)), imag(poles(i)));
     end
-    fprintf('
-');
+    fprintf('\n');
     
     if zeta > 1
-        fprintf('  System: OVERDAMPED (two real poles)
-');
+        fprintf('  System: OVERDAMPED (two real poles)\n');
     elseif zeta == 1
-        fprintf('  System: CRITICALLY DAMPED (repeated real poles)
-');
+        fprintf('  System: CRITICALLY DAMPED (repeated real poles)\n');
     elseif zeta > 0
-        fprintf('  System: UNDERDAMPED (complex conjugate poles)
-');
-        fprintf('  Peak Time (tp): %.3f s
-', tp);
-        fprintf('  Percent Overshoot (%%OS): %.1f%%
-', PO);
-        fprintf('  Settling Time (2%%): %.3f s
-', ts);
-        fprintf('  Rise Time (0-100%%): %.3f s
-', tr);
-        fprintf('  Damped Frequency (wd): %.3f rad/s
-', wd);
+        fprintf('  System: UNDERDAMPED (complex conjugate poles)\n');
+        fprintf('  Peak Time (tp): %.3f s\n', tp);
+        fprintf('  Percent Overshoot (%%OS): %.1f%%\n', PO);
+        fprintf('  Settling Time (2%%): %.3f s\n', ts);
+        fprintf('  Rise Time (0-100%%): %.3f s\n', tr);
+        fprintf('  Damped Frequency (wd): %.3f rad/s\n', wd);
     elseif zeta == 0
-        fprintf('  System: UNDAMPED (pure oscillation)
-');
+        fprintf('  System: UNDAMPED (pure oscillation)\n');
     else
-        fprintf('  System: UNSTABLE (zeta < 0)
-');
+        fprintf('  System: UNSTABLE (zeta < 0)\n');
     end
     
     close_system(model_name, 0);
-    fprintf('
-Model saved to models/%s.slx
-', model_name);
-end
-
-% Run if called directly
-if true  % Run when script is executed directly
-    build_second_order();
+    fprintf('\nModel saved to models/%s.slx\n', model_name);
 end

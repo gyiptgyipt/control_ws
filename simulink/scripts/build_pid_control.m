@@ -1,3 +1,4 @@
+function build_pid_control()
 % build_pid_control.m
 % Build and simulate PID control system in Simulink
 % Tutorial: PID Controller Design
@@ -16,7 +17,6 @@
 %   3. Ziegler-Nichols (ultimate gain method)
 %   4. PID Tuner (Simulink Control Design)
 
-function build_pid_control()
     % Plant parameters
     % G(s) = 1 / (s*(s+2)*(s+5)) = 1 / (s^3 + 7s^2 + 10s)
     plant_num = [1];
@@ -109,8 +109,7 @@ function build_pid_control()
     save_system(model_name, fullfile('models', model_name));
     
     % Run simulation
-    fprintf('Running PID control simulation...
-');
+    fprintf('Running PID control simulation...\n');
     simOut = sim(model_name);
     
     % Extract results
@@ -162,46 +161,23 @@ function build_pid_control()
     grid on;
     
     % Print metrics
-    fprintf('
-PID Control Performance:
-');
-    fprintf('  Kp = %.2f, Ki = %.2f, Kd = %.2f
-', Kp, Ki, Kd);
-    fprintf('  Steady-state value: %.4f
-', steady_state);
-    fprintf('  Steady-state error: %.4f
-', ss_error);
-    fprintf('  Percent overshoot: %.2f%%
-', percent_overshoot);
-    fprintf('  Rise time (10-90%%): %.3f s
-', rise_time);
-    fprintf('  Settling time (2%%): %.3f s
-', settling_time);
-    fprintf('  Max control effort: %.3f
-', max(abs(u)));
+    fprintf('\nPID Control Performance:\n');
+    fprintf('  Kp = %.2f, Ki = %.2f, Kd = %.2f\n', Kp, Ki, Kd);
+    fprintf('  Steady-state value: %.4f\n', steady_state);
+    fprintf('  Steady-state error: %.4f\n', ss_error);
+    fprintf('  Percent overshoot: %.2f%%\n', percent_overshoot);
+    fprintf('  Rise time (10-90%%): %.3f s\n', rise_time);
+    fprintf('  Settling time (2%%): %.3f s\n', settling_time);
+    fprintf('  Max control effort: %.3f\n', max(abs(u)));
     
     % Ziegler-Nichols tuning suggestions
-    fprintf('
-Ziegler-Nichols Tuning Rules (for reference):
-');
-    fprintf('  Step Response Method:
-');
-    fprintf('    Kp = 1.2*(L/T), Ki = Kp/(2*L), Kd = Kp*0.5*L
-');
-    fprintf('  Ultimate Gain Method:
-');
-    fprintf('    Kp = 0.6*Ku, Ki = 1.2*Ku/Tu, Kd = 0.075*Ku*Tu
-');
+    fprintf('\nZiegler-Nichols Tuning Rules (for reference):\n');
+    fprintf('  Step Response Method:\n');
+    fprintf('    Kp = 1.2*(L/T), Ki = Kp/(2*L), Kd = Kp*0.5*L\n');
+    fprintf('  Ultimate Gain Method:\n');
+    fprintf('    Kp = 0.6*Ku, Ki = 1.2*Ku/Tu, Kd = 0.075*Ku*Tu\n');
     
     close_system(model_name, 0);
-    fprintf('
-Model saved to models/%s.slx
-', model_name);
-    fprintf('Open PID Tuner: double-click PID Controller block -> Tune
-');
-end
-
-% Run if called directly
-if true  % Run when script is executed directly
-    build_pid_control();
+    fprintf('\nModel saved to models/%s.slx\n', model_name);
+    fprintf('Open PID Tuner: double-click PID Controller block -> Tune\n');
 end

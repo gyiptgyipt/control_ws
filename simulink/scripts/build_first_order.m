@@ -1,3 +1,4 @@
+function build_first_order()
 % build_first_order.m
 % Build and simulate a first-order system in Simulink
 % Tutorial: First-Order System Response
@@ -8,7 +9,6 @@
 %   - Steady-state value: K * step_amplitude
 %   - Settling time (2%): ~4*tau
 
-function build_first_order_l()
     % Parameters
     K = 2;          % System gain
     tau = 1.5;      % Time constant (seconds)
@@ -77,7 +77,7 @@ function build_first_order_l()
     save_system(model_name, fullfile('models', model_name));
     
     % Run simulation
-    fprintf('Running simulation for %s...', model_name);
+    fprintf('Running simulation for %s...\n', model_name);
     simOut = sim(model_name);
     
     % Extract and plot results
@@ -90,24 +90,19 @@ function build_first_order_l()
     plot([tau, tau], [0, K*step_amplitude*0.632], 'r:', 'LineWidth', 1.5);
     plot(tau, K*step_amplitude*0.632, 'ro', 'MarkerFaceColor', 'r', 'MarkerSize', 8);
     xlabel('Time (s)'); ylabel('Amplitude');
-    title(sprintf('First-Order System: K=%.1f, \tau=%.1f s', K, tau));
-    legend('Response', 'Steady-state', sprintf('\tau = %.1f s (63.2%%)', tau), 'Location', 'southeast');
+    title(sprintf('First-Order System: K=%.1f, \\tau=%.1f s', K, tau));
+    legend('Response', 'Steady-state', sprintf('\\tau = %.1f s (63.2%%)', tau), 'Location', 'southeast');
     grid on;
     
     % Print key metrics
-    fprintf('First-Order System Characteristics:');
-    fprintf('  Gain (K): %.2f', K);
-    fprintf('  Time Constant (tau): %.2f s', tau);
-    fprintf('  Steady-state value: %.2f', K*step_amplitude);
-    fprintf('  63.2%% rise time: %.2f s', tau);
-    fprintf('  Settling time (2%%): %.2f s', 4*tau);
-    fprintf('  Settling time (5%%): %.2f s', 3*tau);
+    fprintf('\nFirst-Order System Characteristics:\n');
+    fprintf('  Gain (K): %.2f\n', K);
+    fprintf('  Time Constant (tau): %.2f s\n', tau);
+    fprintf('  Steady-state value: %.2f\n', K*step_amplitude);
+    fprintf('  63.2%% rise time: %.2f s\n', tau);
+    fprintf('  Settling time (2%%): %.2f s\n', 4*tau);
+    fprintf('  Settling time (5%%): %.2f s\n', 3*tau);
     
     close_system(model_name, 0);
-    fprintf('Model saved to models/%s.slx', model_name);
-end
-
-% Run if called directly
-if true  % Run when script is executed directly
-    build_first_order_l();
+    fprintf('\nModel saved to models/%s.slx\n', model_name);
 end

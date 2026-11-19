@@ -1,8 +1,8 @@
+function run_all_tutorials()
 % run_all_tutorials.m
 % Master script to run all Simulink control tutorials
 % This script builds all models, runs simulations, and generates plots
 
-function run_all_tutorials()
     fprintf('============================================================\n');
     fprintf('SIMULINK BASIC CONTROL TUTORIAL - RUNNING ALL MODULES\n');
     fprintf('============================================================\n\n');
@@ -56,9 +56,4 @@ function run_all_tutorials()
         fprintf('\nERROR: %s\n', ME.message);
         fprintf('Stack trace:\n%s\n', ME.stack);
     end
-end
-
-% Run if called directly
-if true  % Run when script is executed directly
-    run_all_tutorials();
 end

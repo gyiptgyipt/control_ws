@@ -1,3 +1,4 @@
+function build_bode_plot()
 % build_bode_plot.m
 % Build frequency response analysis model in Simulink
 % Tutorial: Frequency Response Analysis (Bode Plots)
@@ -14,7 +15,6 @@
 % Plant: G(s) = 10 / (s*(s+2)*(s+5))
 % With PID controller for demonstration
 
-function build_bode_plot()
     % Plant parameters
     % G(s) = 10 / (s*(s+2)*(s+5))  (Type 1, DC gain = inf for step)
     plant_num = [10];
@@ -100,9 +100,7 @@ function build_bode_plot()
     % ============================================================
     % FREQUENCY RESPONSE ANALYSIS (MATLAB)
     % ============================================================
-    fprintf('Performing Frequency Response Analysis...
-
-');
+    fprintf('Performing Frequency Response Analysis...\n\n');
     
     % Create transfer functions
     s = tf('s');
@@ -142,34 +140,20 @@ function build_bode_plot()
     [Mp, idx] = max(mag);
     wp = w(idx);
     
-    fprintf('Frequency Response Analysis Results:
-');
-    fprintf('  Plant: G(s) = 10/(s(s+2)(s+5))
-');
-    fprintf('  Controller: PID (Kp=%.1f, Ki=%.1f, Kd=%.1f)
-', Kp, Ki, Kd);
-    fprintf('
-');
-    fprintf('  OPEN-LOOP MARGINS:
-');
-    fprintf('    Gain Margin: %.2f dB (%.2f x)
-', 20*log10(Gm), Gm);
-    fprintf('    Phase Margin: %.2f deg
-', Pm);
-    fprintf('    Gain Crossover (wcg): %.3f rad/s
-', Wcg);
-    fprintf('    Phase Crossover (wcp): %.3f rad/s
-', Wcp);
-    fprintf('
-');
-    fprintf('  CLOSED-LOOP CHARACTERISTICS:
-');
-    fprintf('    Bandwidth: %.3f rad/s
-', bw);
-    fprintf('    DC Gain: %.3f
-', dc_gain);
-    fprintf('    Resonant Peak (Mp): %.3f (%.2f dB) at %.3f rad/s
-', Mp, 20*log10(Mp), wp);
+    fprintf('Frequency Response Analysis Results:\n');
+    fprintf('  Plant: G(s) = 10/(s(s+2)(s+5))\n');
+    fprintf('  Controller: PID (Kp=%.1f, Ki=%.1f, Kd=%.1f)\n', Kp, Ki, Kd);
+    fprintf('\n');
+    fprintf('  OPEN-LOOP MARGINS:\n');
+    fprintf('    Gain Margin: %.2f dB (%.2f x)\n', 20*log10(Gm), Gm);
+    fprintf('    Phase Margin: %.2f deg\n', Pm);
+    fprintf('    Gain Crossover (wcg): %.3f rad/s\n', Wcg);
+    fprintf('    Phase Crossover (wcp): %.3f rad/s\n', Wcp);
+    fprintf('\n');
+    fprintf('  CLOSED-LOOP CHARACTERISTICS:\n');
+    fprintf('    Bandwidth: %.3f rad/s\n', bw);
+    fprintf('    DC Gain: %.3f\n', dc_gain);
+    fprintf('    Resonant Peak (Mp): %.3f (%.2f dB) at %.3f rad/s\n', Mp, 20*log10(Mp), wp);
     
     % Nyquist plot
     figure('Name', 'Nyquist Plot', 'NumberTitle', 'off');
@@ -184,9 +168,7 @@ function build_bode_plot()
     title('Nichols Chart of Open-Loop L(s)');
     
     % Simulate sinusoidal response at key frequencies
-    fprintf('
-Sinusoidal steady-state response at key frequencies:
-');
+    fprintf('\nSinusoidal steady-state response at key frequencies:\n');
     test_freqs = [0.1, 1, Wcg, 10, 100];
     for w = test_freqs
         % Simulate for 20 seconds at this frequency
@@ -205,20 +187,11 @@ Sinusoidal steady-state response at key frequencies:
             u_ss = u(idx);
             mag_ratio = (max(y_ss)-min(y_ss))/(max(u_ss)-min(u_ss))/2;
             % Phase estimation (simplified)
-            fprintf('  w=%.2f rad/s: |G|=%.3f (%.2f dB)
-', w, mag_ratio, 20*log10(mag_ratio));
+            fprintf('  w=%.2f rad/s: |G|=%.3f (%.2f dB)\n', w, mag_ratio, 20*log10(mag_ratio));
         end
     end
     
     close_system(model_name, 0);
-    fprintf('
-Model saved to models/%s.slx
-', model_name);
-    fprintf('Use bode(), margin(), bandwidth() in MATLAB for analysis
-');
-end
-
-% Run if called directly
-if true  % Run when script is executed directly
-    build_bode_plot();
+    fprintf('\nModel saved to models/%s.slx\n', model_name);
+    fprintf('Use bode(), margin(), bandwidth() in MATLAB for analysis\n');
 end

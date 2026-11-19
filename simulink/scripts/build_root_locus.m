@@ -1,3 +1,4 @@
+function build_root_locus()
 % build_root_locus.m
 % Build root locus analysis model in Simulink
 % Tutorial: Root Locus Analysis
@@ -16,7 +17,6 @@
 % Open-loop zeros: none
 % Asymptotes: 3 branches, centroid = (0-2-5)/3 = -2.33, angles = 60, 180, 300 deg
 
-function build_root_locus()
     % Plant transfer function
     % G(s) = K / (s*(s+2)*(s+5))  (K is the varying gain)
     num = [1];
@@ -94,9 +94,7 @@ function build_root_locus()
     % ============================================================
     % ROOT LOCUS ANALYSIS (MATLAB - not Simulink)
     % ============================================================
-    fprintf('Performing Root Locus Analysis...
-
-');
+    fprintf('Performing Root Locus Analysis...\n\n');
     
     % Create transfer function
     s = tf('s');
@@ -136,32 +134,21 @@ function build_root_locus()
     
     % 4. Angle of departure from complex poles (none in this case)
     
-    fprintf('Root Locus Analysis Results:
-');
-    fprintf('  Open-loop poles: 0, -2, -5
-');
-    fprintf('  Open-loop zeros: none
-');
-    fprintf('  Number of branches: %d
-', n_poles);
-    fprintf('  Asymptote centroid: %.3f
-', centroid);
-    fprintf('  Asymptote angles: %s deg
-', mat2str(asymptote_angles));
+    fprintf('Root Locus Analysis Results:\n');
+    fprintf('  Open-loop poles: 0, -2, -5\n');
+    fprintf('  Open-loop zeros: none\n');
+    fprintf('  Number of branches: %d\n', n_poles);
+    fprintf('  Asymptote centroid: %.3f\n', centroid);
+    fprintf('  Asymptote angles: %s deg\n', mat2str(asymptote_angles));
     if ~isempty(real_breakaway)
-        fprintf('  Breakaway point: s = %.3f
-', real_breakaway);
+        fprintf('  Breakaway point: s = %.3f\n', real_breakaway);
     end
-    fprintf('  jw-axis crossing: K = %.1f, w = %.3f rad/s
-', K_critical, w_crossing);
-    fprintf('  Stable range: 0 < K < %.1f
-', K_critical);
+    fprintf('  jw-axis crossing: K = %.1f, w = %.3f rad/s\n', K_critical, w_crossing);
+    fprintf('  Stable range: 0 < K < %.1f\n', K_critical);
     
     % Simulate at different gains
     K_test = [1, 10, 35, 70, 100];
-    fprintf('
-Closed-loop step responses at different gains:
-');
+    fprintf('\nClosed-loop step responses at different gains:\n');
     
     figure('Name', 'Step Responses at Various Gains', 'NumberTitle', 'off');
     for i = 1:length(K_test)
@@ -174,20 +161,11 @@ Closed-loop step responses at different gains:
         
         % Get step info
         info = stepinfo(sys_cl);
-        fprintf('  K=%.0f: ts=%.2f, PO=%.1f%%, ess=%.4f
-', ...
+        fprintf('  K=%.0f: ts=%.2f, PO=%.1f%%, ess=%.4f\n', ...
             K, info.SettlingTime, info.Overshoot, 1-info.SettlingValue);
     end
     
     close_system(model_name, 0);
-    fprintf('
-Model saved to models/%s.slx
-', model_name);
-    fprintf('Use rlocus() in MATLAB for interactive analysis
-');
-end
-
-% Run if called directly
-if true  % Run when script is executed directly
-    build_root_locus();
+    fprintf('\nModel saved to models/%s.slx\n', model_name);
+    fprintf('Use rlocus() in MATLAB for interactive analysis\n');
 end
